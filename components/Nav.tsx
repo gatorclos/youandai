@@ -37,21 +37,7 @@ export default function Nav() {
           <Link href="/about" style={{ fontSize: "13px", color: "var(--slate)", textDecoration: "none", fontWeight: 500 }}>
             About
           </Link>
-          <a
-            href="https://youand.ai/rss"
-            style={{
-              fontSize: "12px",
-              color: "var(--periwinkle)",
-              textDecoration: "none",
-              fontWeight: 600,
-              padding: "5px 12px",
-              border: "1px solid rgba(91,110,245,0.35)",
-              borderRadius: "6px",
-              fontFamily: "JetBrains Mono, monospace",
-            }}
-          >
-            RSS
-          </a>
+
         </div>
       </div>
     </nav>
