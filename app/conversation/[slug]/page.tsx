@@ -5,6 +5,7 @@ import ModelBadge from "@/components/ModelBadge";
 import TaskBadge from "@/components/TaskBadge";
 import AudioPlayer from "@/components/AudioPlayer";
 import ConversationTranscript from "@/components/ConversationTranscript";
+import TopicImage from "@/components/TopicImage";
 import { conversations } from "@/lib/data";
 
 export async function generateStaticParams() {
@@ -19,68 +20,77 @@ export default async function ConversationPage({ params }: { params: Promise<{ s
   return (
     <>
       <Nav />
-      <main style={{ maxWidth: "760px", margin: "0 auto", padding: "0 24px 80px" }}>
+      <main id="main-content" style={{ maxWidth: "740px", margin: "0 auto", padding: "0 24px 96px" }}>
 
         <div style={{ padding: "28px 0 0" }}>
-          <Link href="/" style={{ fontSize: "13px", color: "var(--slate)", textDecoration: "none" }}>
+          <Link href="/" style={{ fontSize: "13px", color: "var(--text-muted)", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "5px" }}>
             ← All conversations
           </Link>
         </div>
 
-        <header style={{ padding: "32px 0 36px", borderBottom: "1px solid var(--border)" }}>
+        {/* ── Header ── */}
+        <header style={{ padding: "32px 0 40px", borderBottom: "1px solid var(--border)" }}>
+
+          {/* Topic image */}
+          <TopicImage slug={conv.slug} />
+
+          {/* Meta */}
           <div style={{ display: "flex", gap: "8px", marginBottom: "20px", flexWrap: "wrap", alignItems: "center" }}>
             <ModelBadge model={conv.model} />
             <TaskBadge task={conv.task} />
-            <span style={{ fontSize: "12px", color: "var(--slate)", fontFamily: "JetBrains Mono, monospace", marginLeft: "auto" }}>
+            <time dateTime={conv.date} style={{ fontSize: "12px", color: "var(--text-muted)", fontFamily: "JetBrains Mono, monospace", marginLeft: "auto" }}>
               {new Date(conv.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })} · {conv.readTime} min
-            </span>
+            </time>
           </div>
 
-          <h1 style={{
-            fontFamily: "DM Serif Display, serif",
-            fontSize: "clamp(26px, 4vw, 40px)",
-            fontWeight: 400, lineHeight: 1.2,
-            color: "var(--off-white)", marginBottom: "16px", letterSpacing: "-0.02em",
+          {/* Title */}
+          <h1 className="font-display" style={{
+            fontSize: "clamp(26px, 4vw, 42px)", fontWeight: 400,
+            lineHeight: 1.15, color: "var(--text-primary)",
+            marginBottom: "18px", letterSpacing: "-0.025em",
           }}>
             {conv.title}
           </h1>
 
-          <p style={{ fontSize: "16px", color: "var(--slate)", lineHeight: 1.75 }}>
+          {/* Summary */}
+          <p style={{ fontSize: "17px", color: "var(--text-muted)", lineHeight: 1.75, marginBottom: "28px" }}>
             {conv.summary}
           </p>
 
-          <div style={{
-            marginTop: "28px", padding: "20px 24px",
-            background: "rgba(91,110,245,0.06)", border: "1px solid rgba(91,110,245,0.2)", borderRadius: "10px",
+          {/* Key insight */}
+          <aside aria-label="Key insight" style={{
+            padding: "20px 24px",
+            background: "var(--blue-dim)",
+            border: "1px solid rgba(79,107,245,0.2)",
+            borderLeft: "3px solid var(--blue)",
+            borderRadius: "0 10px 10px 0",
           }}>
-            <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.12em", color: "var(--periwinkle)", textTransform: "uppercase", marginBottom: "8px" }}>
+            <p className="font-mono" style={{ fontSize: "10px", fontWeight: 600, letterSpacing: "0.1em", color: "var(--blue)", textTransform: "uppercase", marginBottom: "8px" }}>
               Key insight
-            </div>
-            <p style={{ fontSize: "15px", color: "var(--off-white)", lineHeight: 1.7, fontStyle: "italic" }}>
+            </p>
+            <p style={{ fontSize: "16px", color: "var(--text-primary)", lineHeight: 1.7, fontStyle: "italic" }}>
               &ldquo;{conv.insight}&rdquo;
             </p>
-          </div>
+          </aside>
 
-          {/* Audio player — tabs for conversation vs debate */}
-          <AudioPlayer
-            messages={conv.messages}
-            debateRounds={conv.debateRounds}
-            slug={conv.slug}
-          />
+          {/* Audio player */}
+          <AudioPlayer messages={conv.messages} debateRounds={conv.debateRounds} slug={conv.slug} />
         </header>
 
-        <section style={{ paddingTop: "40px" }}>
-          <div style={{ fontSize: "11px", color: "#4A5568", fontFamily: "JetBrains Mono, monospace", letterSpacing: "0.06em", marginBottom: "28px" }}>
-            TRANSCRIPT
-          </div>
+        {/* ── Transcript ── */}
+        <section style={{ paddingTop: "44px" }} aria-label="Conversation transcript">
+          <p className="font-mono" style={{ fontSize: "10px", color: "var(--text-faint)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "28px" }}>
+            Transcript
+          </p>
           <ConversationTranscript messages={conv.messages} debateRounds={conv.debateRounds} />
         </section>
 
-        <div style={{ marginTop: "60px", paddingTop: "32px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "16px" }}>
-          <Link href="/" style={{ fontSize: "13px", color: "var(--slate)", textDecoration: "none" }}>
+        {/* ── Footer nav ── */}
+        <div style={{ marginTop: "64px", paddingTop: "28px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
+          <Link href="/" style={{ fontSize: "13px", color: "var(--text-muted)", textDecoration: "none" }}>
             ← Back to all conversations
           </Link>
-          <span style={{ fontSize: "12px", color: "#4A5568", fontFamily: "JetBrains Mono, monospace" }}>youand.ai</span>
+          <span className="font-mono" style={{ fontSize: "11px", color: "var(--text-faint)" }}>youand.ai</span>
         </div>
       </main>
     </>
