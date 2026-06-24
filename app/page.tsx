@@ -108,6 +108,48 @@ export default function Home() {
           ))}
         </section>
 
+        {/* ── White paper feature ── */}
+        <section style={{ paddingTop: "52px" }} aria-label="Featured white paper">
+          <a href="/whitepaper" style={{ textDecoration: "none", display: "block" }}>
+            <div style={{
+              background: "linear-gradient(135deg, rgba(240,165,0,0.06) 0%, var(--surface) 60%)",
+              border: "1px solid rgba(240,165,0,0.2)",
+              borderRadius: "14px",
+              padding: "28px 32px",
+              display: "flex",
+              alignItems: "center",
+              gap: "24px",
+              flexWrap: "wrap",
+            }}>
+              <div style={{ flex: 1, minWidth: "260px" }}>
+                <span className="font-mono" style={{
+                  fontSize: "10px", fontWeight: 600, letterSpacing: "0.1em",
+                  color: "var(--amber)", textTransform: "uppercase",
+                }}>
+                  New · White Paper
+                </span>
+                <h2 className="font-display" style={{
+                  fontSize: "24px", fontWeight: 400, color: "var(--text-primary)",
+                  margin: "8px 0 8px", letterSpacing: "-0.02em", lineHeight: 1.2,
+                }}>
+                  The Coupled-Signal Manifesto
+                </h2>
+                <p style={{ fontSize: "15px", color: "var(--text-muted)", lineHeight: 1.6 }}>
+                  A novel framework for detecting synthetic media by the statistical decoupling of
+                  physiologically bound signals — with math, architecture, and a falsifiable protocol.
+                </p>
+              </div>
+              <span style={{
+                display: "inline-flex", alignItems: "center", gap: "6px",
+                padding: "11px 22px", background: "var(--amber)", borderRadius: "8px",
+                fontSize: "14px", fontWeight: 600, color: "#1A1206", whiteSpace: "nowrap",
+              }}>
+                Read paper →
+              </span>
+            </div>
+          </a>
+        </section>
+
         {/* ── Grid ── */}
         <section style={{ paddingTop: "52px" }} aria-label="All conversations">
           <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: "32px", flexWrap: "wrap", gap: "12px" }}>
